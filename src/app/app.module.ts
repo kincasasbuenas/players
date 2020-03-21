@@ -3,16 +3,46 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule,ReactiveFormsModule }   from '@angular/forms';
+
+//ANGULAR MATERIAL COMPONENTS
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatTableModule} from '@angular/material/table';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatDialogModule} from '@angular/material/dialog';
+
+//SERVICES
+import { HttpClientModule } from '@angular/common/http';
+import { PlayersService } from '../app/services/players.service';
+import { PlayersComponent } from './components/players/players.component';
+import { PlayerComponent } from './components/player/player.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PlayersComponent,
+    PlayerComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [PlayersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

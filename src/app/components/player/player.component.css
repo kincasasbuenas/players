@@ -1,0 +1,19 @@
+.full-width{
+  width: 100%;
+}
+.danger{
+  margin: 0 auto;
+  width: 40%;
+  color: #fff;
+  background: red;
+}
+.success{
+  margin: 0 auto;
+  width: 40%;
+  color: #fff;
+  background: #29a929;
+}
+.mat-dialog-title{
+  text-align: center;
+  text-transform: uppercase;
+}

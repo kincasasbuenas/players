@@ -1,0 +1,12 @@
+table {
+  width: 100%;
+}
+.container{
+  padding: 20px;
+}
+.btn-newPlayer{
+  position: fixed;
+  right: 20px;
+  top: 35px;
+  z-index: 10;
+}
