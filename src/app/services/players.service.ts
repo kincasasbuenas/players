@@ -36,9 +36,9 @@ export class PlayersService {
       return this.http.post(`${this.playersJSON}/players.json`, body, {headers}).pipe(map(res => res));
     }
 
-    newPlayer(player:Players){
+    newPlayer(player:Player){
         console.log('Add new Player');
-        let body =JSON.stringify(player);;
+        let body =JSON.stringify(player);
         let headers= new HttpHeaders({
           'Content-Type':'application/json'
         });
@@ -47,7 +47,7 @@ export class PlayersService {
 
 }
 
-export interface Players {
+export interface Player{
   id:number;
   first_name: string;
   last_name: string;

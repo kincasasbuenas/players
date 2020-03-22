@@ -17,3 +17,6 @@
   text-align: center;
   text-transform: uppercase;
 }
+.mat-dialog-content{
+  overflow: visible;
+}

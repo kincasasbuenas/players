@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {PlayersService} from '../../services/players.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {PlayerComponent} from "../../components/player/player.component";
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-players',
@@ -12,10 +13,10 @@ import {PlayerComponent} from "../../components/player/player.component";
 export class PlayersComponent implements OnInit {
 
   players:any  []=[];
-  displayedColumns: string[] = ['first_name', 'last_name', 'position','height_feet','height_inches', 'weight_pounds'];
-  dataSource:any []=[];
+  displayedColumns: string[] = ['first_name', 'last_name', 'position','height_feet','height_inches', 'weight_pounds','actions'];
+  private dataSource;
 
-  player:Players={
+  player:Player={
     first_name: '',
     last_name: '',
     position: '',
@@ -24,16 +25,13 @@ export class PlayersComponent implements OnInit {
     weight_pounds:null,
   };
 
-  //data new player
-  name: string;
-  lastname: string;
 
   constructor(public dialog: MatDialog, private router:Router,private _ps:PlayersService) {
     this._ps.getAllPlayers().subscribe( data =>{
       console.log('List Players');
       this.players = data['data'];
       //console.log(this.players);
-      this.dataSource = this.players;
+      this.dataSource = new MatTableDataSource(this.players);
       if(this.player)
         this._ps.setAllPlayers(this.players);
     });
@@ -44,26 +42,35 @@ export class PlayersComponent implements OnInit {
   ngOnInit() {
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   NewPlayer(): void {
     const dialogRef = this.dialog.open(PlayerComponent, {
-      width: '350px',
-      data: {name: this.name, lastname: this.lastname}
+      width: '420px',
+      height:'auto',
+      data: {
+            first_name: this.player.first_name,
+            last_name: this.player.last_name,
+            position: this.player.position,
+            height_feet: this.player.height_feet,
+            height_inches: this.player.height_inches,
+            weight_pounds:this.player.weight_pounds
+          }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.name = result;
+      this.player.first_name = result;
+      console.log('The dialog was closed new player:'+this.player.first_name);
     });
+
   }
 
 }
 
-export interface DialogData {
-  name: string;
-  lastname: string;
-}
-
-export interface Players {
+export interface Player {
   first_name: string;
   last_name: string;
   position: string;

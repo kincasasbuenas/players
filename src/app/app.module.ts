@@ -14,6 +14,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 //SERVICES
 import { HttpClientModule } from '@angular/common/http';
@@ -40,6 +43,8 @@ import { PlayerComponent } from './components/player/player.component';
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
+    MatSelectModule,
+    MatSnackBarModule,
     HttpClientModule,
   ],
   providers: [PlayersService],
