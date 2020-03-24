@@ -53,10 +53,13 @@
   <ng-container matColumnDef="actions">
   <th mat-header-cell *matHeaderCellDef>Actions </th>
   <td mat-cell *matCellDef="let row">
-    <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary">
+    <button mat-icon-button matTooltip="Click to View" class="iconbutton" color="basic" (click)="viewPlayer(row.id)">
+        <mat-icon aria-label="View">remove_red_eye</mat-icon>
+      </button>
+    <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary" (click)="editPlayer(row.id)">
         <mat-icon aria-label="Edit">edit</mat-icon>
       </button>
-    <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="warn">
+    <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="warn" (click)="deletePlayer(row.id)">
         <mat-icon aria-label="Delete">delete</mat-icon>
       </button>
   </td>

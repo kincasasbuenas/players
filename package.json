@@ -24,6 +24,7 @@
     "core-js": "^2.5.4",
     "file-saver": "^2.0.2",
     "fs-extra": "^8.1.0",
+    "json-server": "^0.16.1",
     "ngx-filesaver": "^8.1.0",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",

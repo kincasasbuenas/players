@@ -23,12 +23,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { PlayersService } from '../app/services/players.service';
 import { PlayersComponent } from './components/players/players.component';
 import { PlayerComponent } from './components/player/player.component';
+import { ConfirmationDeleteComponent } from './components/confirmation-delete/confirmation-delete.component';
+import { DetailsPlayerComponent } from './components/details-player/details-player.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PlayersComponent,
-    PlayerComponent
+    PlayerComponent,
+    ConfirmationDeleteComponent,
+    DetailsPlayerComponent
   ],
   imports: [
     FormsModule,

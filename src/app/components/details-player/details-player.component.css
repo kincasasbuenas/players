@@ -1,0 +1,10 @@
+li{
+  list-style: none;
+  font-size: 16px;
+}
+.mat-icon{
+  vertical-align: bottom;
+}
+.text-center{
+  text-align: center;
+}

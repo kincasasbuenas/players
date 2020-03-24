@@ -1,0 +1,28 @@
+<h2 mat-dialog-title class="text-center">{{ playerData.first_name}} {{ playerData.last_name}}</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Details:</h3>
+
+    <ul>
+      <li>
+        <mat-icon aria-label="item">check_circle</mat-icon>
+        <strong>Position:</strong> {{playerData.position}}
+      </li>
+      <li>
+        <mat-icon aria-label="item">check_circle</mat-icon>
+        <strong>Weight pounds:</strong> {{playerData.weight_pounds}}
+      </li>
+      <li>
+        <mat-icon aria-label="item">check_circle</mat-icon>
+        <strong>Height feet:</strong> {{playerData.height_feet}}
+      </li>
+      <li>
+        <mat-icon aria-label="item">check_circle</mat-icon>
+        <strong>Height inches:</strong> {{playerData.height_inches}}
+      </li>
+    </ul>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+  <!--button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button-->
+</mat-dialog-actions>

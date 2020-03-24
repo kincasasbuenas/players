@@ -3,7 +3,10 @@ import { Router } from '@angular/router';
 import {PlayersService} from '../../services/players.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {PlayerComponent} from "../../components/player/player.component";
+import {ConfirmationDeleteComponent} from "../../components/confirmation-delete/confirmation-delete.component";
+import { DetailsPlayerComponent } from '../../components/details-player/details-player.component';
 import {MatTableDataSource} from '@angular/material/table';
+import { Player } from '../../interfaces/player.interface';
 
 @Component({
   selector: 'app-players',
@@ -12,11 +15,12 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class PlayersComponent implements OnInit {
 
-  players:any  []=[];
+  players:Player []=[];
   displayedColumns: string[] = ['first_name', 'last_name', 'position','height_feet','height_inches', 'weight_pounds','actions'];
   private dataSource;
 
   player:Player={
+    id:null,
     first_name: '',
     last_name: '',
     position: '',
@@ -27,19 +31,18 @@ export class PlayersComponent implements OnInit {
 
 
   constructor(public dialog: MatDialog, private router:Router,private _ps:PlayersService) {
-    this._ps.getAllPlayers().subscribe( data =>{
-      console.log('List Players');
-      this.players = data['data'];
-      //console.log(this.players);
-      this.dataSource = new MatTableDataSource(this.players);
-      if(this.player)
-        this._ps.setAllPlayers(this.players);
-    });
-
-
+    this.loadPlayers();
   }
 
   ngOnInit() {
+  }
+
+  // Get players list
+  loadPlayers() {
+    return this._ps.getAllPlayers().subscribe( data =>{
+        this.players = data as any;
+        this.dataSource = new MatTableDataSource(this.players);
+    });
   }
 
   applyFilter(event: Event) {
@@ -48,7 +51,7 @@ export class PlayersComponent implements OnInit {
   }
 
   NewPlayer(): void {
-    const dialogRef = this.dialog.open(PlayerComponent, {
+    let dialogRef = this.dialog.open(PlayerComponent, {
       width: '420px',
       height:'auto',
       data: {
@@ -63,18 +66,61 @@ export class PlayersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.player.first_name = result;
-      console.log('The dialog was closed new player:'+this.player.first_name);
+      if(result!==''){
+        this.loadPlayers();
+      }else{
+        console.log('The dialog was closed new player:'+this.player.first_name);
+      }
+    });
+  }
+
+  editPlayer(id) {
+    let dialogRef = this.dialog.open(PlayerComponent, {
+      width: '420px',
+      height:'auto',
+      data: {
+            id: id,
+            update:true
+          }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadPlayers();
     });
 
   }
 
-}
+  // View player
+  viewPlayer(id) {
+    let dialogRef = this.dialog.open(DetailsPlayerComponent, {
+      width: '400px',
+      height:'auto',
+      data:{
+        id:id
+      }
+    });
 
-export interface Player {
-  first_name: string;
-  last_name: string;
-  position: string;
-  height_feet: number;
-  height_inches: number;
-  weight_pounds:number;
+    dialogRef.afterClosed().subscribe(result => {});
+  }
+
+  // Delete player
+  deletePlayer(id) {
+    let dialogRef = this.dialog.open(ConfirmationDeleteComponent, {
+      width: '350px',
+      height:'auto',
+      data:{
+        id:id
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      let res = result;
+      if(res > 0){
+        this._ps.deletePlayer(id).subscribe(data => {
+          this.loadPlayers();
+        });
+      }
+    });
+  }
+
 }
